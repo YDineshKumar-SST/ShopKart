@@ -13,11 +13,11 @@ const Wishlist = () => {
     setLoading(true);
     setError(false);
     try {
-      const res = await axios.get("http://localhost:3000/wishlist", { withCredentials: true });
+      const res = await axios.get("https://shopkart-dkq7.onrender.com/wishlist", { withCredentials: true });
       setWishlist(res.data.wishlist);
     } catch (err) {
       if (err.response && err.response.status === 401) {
-        navigate("/login"); 
+        navigate("/login");
       } else {
         setError(true);
       }
@@ -32,7 +32,7 @@ const Wishlist = () => {
 
   const handleRemove = async (productId) => {
     try {
-      await axios.delete(`http://localhost:3000/wishlist/${productId}`, { withCredentials: true });
+      await axios.delete(`https://shopkart-dkq7.onrender.com/wishlist/${productId}`, { withCredentials: true });
       setWishlist(wishlist.filter(item => item._id !== productId));
     } catch (err) {
       console.error(err);
@@ -43,7 +43,7 @@ const Wishlist = () => {
   return (
     <div className="min-h-screen bg-[#f1f3f6] flex flex-col font-sans">
       <Navbar />
-      
+
       <div className="max-w-7xl mx-auto w-full px-2 sm:px-4 py-4 space-y-4">
         {/* Header Bar */}
         <div className="bg-white border border-[#e0e0e0] rounded-sm p-4 shadow-sm flex items-center justify-between">
@@ -79,8 +79,8 @@ const Wishlist = () => {
             <div className="text-4xl mb-2">⚠️</div>
             <p className="text-base text-red-600 font-bold mb-1">Failed to load wishlist</p>
             <p className="text-xs text-[#878787] mb-4">Please check your connection and try again.</p>
-            <button 
-              onClick={fetchWishlist} 
+            <button
+              onClick={fetchWishlist}
               className="bg-[#2874f0] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-sm"
             >
               Try Again
@@ -93,7 +93,7 @@ const Wishlist = () => {
           <div className="bg-white border border-[#e0e0e0] rounded-sm p-10 sm:p-16 text-center shadow-sm max-w-xl mx-auto my-6">
             <div className="w-36 h-36 mx-auto mb-4 flex items-center justify-center bg-red-50 rounded-full">
               <svg className="w-16 h-16 text-red-400 fill-current" viewBox="0 0 24 24">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
               </svg>
             </div>
             <h2 className="text-xl font-bold text-[#212121] mb-1">Empty Wishlist</h2>
@@ -152,7 +152,7 @@ const Wishlist = () => {
                       <span className="text-[9px]">★</span>
                     </span>
                     <span className="text-[11px] text-[#878787]">(620)</span>
-                    
+
                     <span className="text-[11px] font-black italic text-[#2874f0] ml-auto">
                       f<span className="text-[#ffe500] font-sans">✓</span>Assured
                     </span>

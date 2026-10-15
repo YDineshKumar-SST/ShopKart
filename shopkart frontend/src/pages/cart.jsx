@@ -29,7 +29,7 @@ const Cart = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/customers/me", { withCredentials: true });
+        const res = await axios.get("https://shopkart-dkq7.onrender.com/customers/me", { withCredentials: true });
         if (res.data?.customer) {
           setUserProfile(res.data.customer);
           setAddress((prev) => ({
@@ -87,7 +87,7 @@ const Cart = () => {
       }
 
       // 2. Fetch Razorpay public Key ID from backend
-      const keyRes = await axios.get("http://localhost:3000/orders/razorpay-key", { withCredentials: true });
+      const keyRes = await axios.get("https://shopkart-dkq7.onrender.com/orders/razorpay-key", { withCredentials: true });
       const razorpayKey = keyRes.data?.keyId;
 
       if (!razorpayKey || razorpayKey.includes("placeholder") || razorpayKey.includes("your_key")) {
@@ -100,7 +100,7 @@ const Cart = () => {
 
       // 3. Create Order on Backend
       const orderRes = await axios.post(
-        "http://localhost:3000/orders/create",
+        "https://shopkart-dkq7.onrender.com/orders/create",
         { shippingAddress: address },
         { withCredentials: true }
       );
@@ -126,7 +126,7 @@ const Cart = () => {
           try {
             // 5. Verify payment signature with backend
             const verifyRes = await axios.post(
-              "http://localhost:3000/orders/verify",
+              "https://shopkart-dkq7.onrender.com/orders/verify",
               {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
@@ -194,7 +194,7 @@ const Cart = () => {
       <Navbar />
 
       <div className="max-w-7xl mx-auto w-full px-2 sm:px-4 py-4 space-y-4">
-        
+
         {loading ? (
           <div className="bg-white rounded-sm border border-[#e0e0e0] p-16 text-center shadow-sm">
             <div className="inline-block animate-spin rounded-full h-9 w-9 border-4 border-[#2874f0] border-t-transparent mb-3"></div>
@@ -218,7 +218,7 @@ const Cart = () => {
           </div>
         ) : (
           <div className="flex flex-col lg:flex-row gap-4 items-start">
-            
+
             {/* Left Column: Cart Items List */}
             <div className="lg:w-8/12 w-full space-y-3">
               {/* Delivery Address Header (Flipkart style) */}
@@ -237,7 +237,7 @@ const Cart = () => {
                 {cart.map((item) => (
                   <div key={item.product?._id} className="p-4 sm:p-6 transition hover:bg-slate-50/40">
                     <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-                      
+
                       {/* Product Thumbnail */}
                       <div className="w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0 flex items-center justify-center bg-white border border-[#f0f0f0] rounded-sm p-2">
                         <img
@@ -258,7 +258,7 @@ const Cart = () => {
                               {item.product?.name}
                             </Link>
                             <p className="text-xs text-[#878787] mt-0.5">{item.product?.category}</p>
-                            
+
                             {/* Seller & Assured */}
                             <div className="flex items-center gap-2 mt-1">
                               <span className="text-xs text-[#878787]">Seller: RetailNet</span>

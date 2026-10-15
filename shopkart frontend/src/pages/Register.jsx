@@ -21,7 +21,7 @@ const Register = () => {
     e.preventDefault();
     setError("");
     try {
-      const response = await axios.post("http://localhost:3000/customers/register", formData);
+      const response = await axios.post("https://shopkart-dkq7.onrender.com/customers/register", formData);
       console.log("Account Created:", response.data);
       navigate("/login");
     } catch (err) {
@@ -41,7 +41,7 @@ const Register = () => {
                 ShopKart
               </span>
               <svg className="w-5 h-5 text-[#ffe500] fill-current transform -rotate-12" viewBox="0 0 24 24">
-                <path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm7 17H5V8h14v12z"/>
+                <path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm7 17H5V8h14v12z" />
               </svg>
             </div>
             <span className="text-[10px] italic font-semibold text-white/90 flex items-center gap-0.5 mt-0.5">
@@ -59,7 +59,7 @@ const Register = () => {
       {/* Main Centered Split Card */}
       <main className="flex-1 flex items-center justify-center p-4 sm:p-6 my-4">
         <div className="w-full max-w-3xl bg-white rounded-sm shadow-xl border border-[#e0e0e0] flex flex-col md:flex-row overflow-hidden min-h-[520px]">
-          
+
           {/* Left Column: Flipkart Blue Panel */}
           <div className="md:w-5/12 bg-[#2874f0] p-8 sm:p-10 text-white flex flex-col justify-between relative overflow-hidden">
             <div className="relative z-10">
@@ -73,7 +73,7 @@ const Register = () => {
             <div className="mt-8 flex justify-center relative z-10">
               <div className="w-32 h-32 rounded-full bg-blue-500/30 flex items-center justify-center">
                 <svg className="w-20 h-20 text-[#ffe500] fill-current" viewBox="0 0 24 24">
-                  <path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm7 17H5V8h14v12z"/>
+                  <path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm7 17H5V8h14v12z" />
                 </svg>
               </div>
             </div>

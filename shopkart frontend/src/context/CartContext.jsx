@@ -10,7 +10,7 @@ export const CartProvider = ({ children }) => {
 
   const fetchCart = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/cart", { withCredentials: true });
+      const res = await axios.get("https://shopkart-dkq7.onrender.com/cart", { withCredentials: true });
       setCart(res.data.cart || []);
     } catch (error) {
       console.error("Failed to fetch cart", error);
@@ -25,9 +25,9 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = async (productId) => {
     try {
-      await axios.post(`http://localhost:3000/cart/${productId}`, {}, { withCredentials: true });
+      await axios.post(`https://shopkart-dkq7.onrender.com/cart/${productId}`, {}, { withCredentials: true });
       // FIX: Adha data set karne ki jagah backend se poora data fresh mangwao
-      await fetchCart(); 
+      await fetchCart();
       return { success: true };
     } catch (error) {
       return { success: false, message: error.response?.data?.message || "Error adding to cart" };
@@ -36,8 +36,8 @@ export const CartProvider = ({ children }) => {
 
   const updateQuantity = async (productId, quantity) => {
     try {
-      await axios.patch(`http://localhost:3000/cart/${productId}`, { quantity }, { withCredentials: true });
-  
+      await axios.patch(`https://shopkart-dkq7.onrender.com/cart/${productId}`, { quantity }, { withCredentials: true });
+
       await fetchCart();
     } catch (error) {
       alert(error.response?.data?.message || "Error updating quantity");
@@ -46,8 +46,8 @@ export const CartProvider = ({ children }) => {
 
   const removeFromCart = async (productId) => {
     try {
-      await axios.delete(`http://localhost:3000/cart/${productId}`, { withCredentials: true });
-   
+      await axios.delete(`https://shopkart-dkq7.onrender.com/cart/${productId}`, { withCredentials: true });
+
       await fetchCart();
     } catch (error) {
       alert("Error removing item");

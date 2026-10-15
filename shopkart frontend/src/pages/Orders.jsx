@@ -11,7 +11,7 @@ const Orders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/orders/my-orders", {
+        const res = await axios.get("https://shopkart-dkq7.onrender.com/orders/my-orders", {
           withCredentials: true
         });
         setOrders(res.data.orders || []);
@@ -104,13 +104,12 @@ const Orders = () => {
                       ID: #{order._id.slice(-8).toUpperCase()}
                     </span>
                     <span
-                      className={`px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider ${
-                        order.paymentStatus === "paid"
+                      className={`px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider ${order.paymentStatus === "paid"
                           ? "bg-green-100 text-[#388e3c]"
                           : order.paymentStatus === "pending"
-                          ? "bg-yellow-100 text-yellow-800"
-                          : "bg-red-100 text-red-700"
-                      }`}
+                            ? "bg-yellow-100 text-yellow-800"
+                            : "bg-red-100 text-red-700"
+                        }`}
                     >
                       {order.paymentStatus === "paid" ? "Paid (Razorpay)" : order.paymentStatus}
                     </span>

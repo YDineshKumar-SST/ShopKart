@@ -20,11 +20,11 @@ const Home = () => {
   useEffect(() => {
     const verifyAuth = async () => {
       try {
-        await axios.get("http://localhost:3000/customers/me", {
-          withCredentials: true 
+        await axios.get("https://shopkart-dkq7.onrender.com/customers/me", {
+          withCredentials: true
         });
       } catch {
-        navigate("/login"); 
+        navigate("/login");
       }
     };
     verifyAuth();
@@ -33,11 +33,11 @@ const Home = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/products", { withCredentials: true });
+        const res = await axios.get("https://shopkart-dkq7.onrender.com/products", { withCredentials: true });
         const productsData = res.data.products;
-        
+
         setFeaturedProducts(productsData.slice(0, 8));
-        
+
         const dynamicBanners = productsData.slice(0, 3).map((product, index) => {
           if (product.image && (product.image.startsWith("http") || product.image.startsWith("data:image"))) {
             return product.image;
@@ -50,7 +50,7 @@ const Home = () => {
             return fallbacks[index % 3];
           }
         });
-        
+
         if (dynamicBanners.length === 0) {
           setBanners([
             "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1400&q=80",
@@ -70,11 +70,11 @@ const Home = () => {
 
   useEffect(() => {
     if (banners.length === 0) return;
-    
+
     const slideInterval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % banners.length);
-    }, 4000); 
-    
+    }, 4000);
+
     return () => clearInterval(slideInterval);
   }, [banners.length]);
 
@@ -109,9 +109,8 @@ const Home = () => {
             {banners.map((banner, index) => (
               <div
                 key={index}
-                className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                  index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
-                }`}
+                className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+                  }`}
               >
                 <img
                   src={banner}
@@ -168,9 +167,8 @@ const Home = () => {
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`h-2 rounded-full transition-all ${
-                    index === currentSlide ? "w-6 bg-[#2874f0]" : "w-2 bg-white/70 hover:bg-white"
-                  }`}
+                  className={`h-2 rounded-full transition-all ${index === currentSlide ? "w-6 bg-[#2874f0]" : "w-2 bg-white/70 hover:bg-white"
+                    }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />
               ))}

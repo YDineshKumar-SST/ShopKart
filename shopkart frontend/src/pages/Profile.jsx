@@ -7,7 +7,7 @@ const Profile = () => {
   const [user, setUser] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
-  
+
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
@@ -16,7 +16,7 @@ const Profile = () => {
 
   const fetchProfile = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/customers/me", { withCredentials: true });
+      const res = await axios.get("https://shopkart-dkq7.onrender.com/customers/me", { withCredentials: true });
       setUser(res.data.customer);
       setFormData({
         fullName: res.data.customer.fullName,
@@ -47,7 +47,7 @@ const Profile = () => {
 
   const handleSave = async () => {
     try {
-      const res = await axios.put("http://localhost:3000/customers/update", formData, {
+      const res = await axios.put("https://shopkart-dkq7.onrender.com/customers/update", formData, {
         withCredentials: true
       });
       setUser(res.data.customer);
@@ -73,10 +73,10 @@ const Profile = () => {
   return (
     <div className="min-h-screen bg-[#f1f3f6] flex flex-col font-sans">
       <Navbar />
-      
+
       <div className="max-w-7xl mx-auto w-full px-2 sm:px-4 py-6">
         <div className="flex flex-col md:flex-row gap-6 items-start">
-          
+
           {/* Left Sidebar: Flipkart My Account Sidebar */}
           <div className="w-full md:w-4/12 space-y-4">
             {/* User Greeting Card */}
@@ -140,13 +140,12 @@ const Profile = () => {
                 <h1 className="text-xl font-bold text-[#212121]">Personal Information</h1>
                 <p className="text-xs text-[#878787] mt-0.5">Manage your personal profile and account credentials</p>
               </div>
-              <button 
+              <button
                 onClick={() => isEditing ? handleSave() : setIsEditing(true)}
-                className={`text-xs font-bold uppercase tracking-wider px-5 py-2 rounded-sm shadow-xs transition ${
-                  isEditing 
-                    ? 'bg-[#388e3c] hover:bg-green-700 text-white' 
+                className={`text-xs font-bold uppercase tracking-wider px-5 py-2 rounded-sm shadow-xs transition ${isEditing
+                    ? 'bg-[#388e3c] hover:bg-green-700 text-white'
                     : 'bg-[#2874f0] hover:bg-[#1b5bbd] text-white'
-                }`}
+                  }`}
               >
                 {isEditing ? "Save Changes" : "Edit Profile"}
               </button>
@@ -181,10 +180,10 @@ const Profile = () => {
                   Full Name
                 </label>
                 {isEditing ? (
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     value={formData.fullName}
-                    onChange={(e) => setFormData({...formData, fullName: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                     className="w-full sm:max-w-md p-2.5 border border-[#d5d7db] rounded-sm text-sm text-[#212121] focus:outline-none focus:border-[#2874f0]"
                   />
                 ) : (
@@ -211,10 +210,10 @@ const Profile = () => {
                   Mobile Number
                 </label>
                 {isEditing ? (
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     value={formData.phone}
-                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     className="w-full sm:max-w-md p-2.5 border border-[#d5d7db] rounded-sm text-sm text-[#212121] focus:outline-none focus:border-[#2874f0]"
                   />
                 ) : (
@@ -228,9 +227,9 @@ const Profile = () => {
               <h3 className="text-sm font-bold text-[#212121]">Frequently Asked Questions</h3>
               <div className="text-xs text-[#878787] space-y-2">
                 <p><strong>What happens when I update my email address (or mobile number)?</strong><br />
-                Your login email id (or mobile number) changes, likewise. You'll receive all your account updates on your updated contact details.</p>
+                  Your login email id (or mobile number) changes, likewise. You'll receive all your account updates on your updated contact details.</p>
                 <p><strong>When will my ShopKart account be updated with the new details?</strong><br />
-                It happens immediately after you confirm the updates.</p>
+                  It happens immediately after you confirm the updates.</p>
               </div>
             </div>
 

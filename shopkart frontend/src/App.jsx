@@ -1,11 +1,11 @@
 import { Routes, Route } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import Home from "./pages/home";
+import Home from "./pages/Home";
 import Products from './pages/Products';
 import ProductDetails from './pages/ProductDetails';
 import Profile from './pages/Profile';
-import Wishlist from './pages/Wishlist'; 
+import Wishlist from './pages/Wishlist';
 import Cart from "./pages/cart";
 import Orders from "./pages/Orders";
 
@@ -22,7 +22,7 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/wishlist" element={<Wishlist />} /> 
+        <Route path="/wishlist" element={<Wishlist />} />
       </Routes>
     </div>
   );

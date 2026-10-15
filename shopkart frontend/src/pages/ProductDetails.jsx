@@ -9,17 +9,17 @@ const ProductDetails = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  
+
   const [wishlistStatus, setWishlistStatus] = useState("");
   const [cartStatus, setCartStatus] = useState("");
-  
+
   const navigate = useNavigate();
   const { cart, addToCart, updateQuantity, removeFromCart } = useCart();
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/products/${id}`, { withCredentials: true });
+        const res = await axios.get(`https://shopkart-dkq7.onrender.com/products/${id}`, { withCredentials: true });
         setProduct(res.data.product);
       } catch {
         setError("Failed to load product details.");
@@ -33,7 +33,7 @@ const ProductDetails = () => {
   const handleAddToWishlist = async () => {
     setWishlistStatus('saving');
     try {
-      await axios.post(`http://localhost:3000/wishlist/${id}`, {}, { withCredentials: true });
+      await axios.post(`https://shopkart-dkq7.onrender.com/wishlist/${id}`, {}, { withCredentials: true });
       setWishlistStatus('added');
     } catch (err) {
       if (err.response?.status === 401) navigate("/login");
@@ -111,7 +111,7 @@ const ProductDetails = () => {
 
         {/* Main Product Container */}
         <div className="bg-white rounded-sm border border-[#e0e0e0] shadow-sm p-4 sm:p-6 lg:p-8 flex flex-col lg:flex-row gap-8 lg:gap-12">
-          
+
           {/* Left Column: Image & Sticky Action Buttons */}
           <div className="lg:w-5/12 flex flex-col">
             <div className="relative border border-[#f0f0f0] rounded-sm p-6 bg-white flex items-center justify-center min-h-[350px] sm:min-h-[420px]">
@@ -123,11 +123,10 @@ const ProductDetails = () => {
                 title={isWishlisted ? "Saved in Wishlist" : "Add to Wishlist"}
               >
                 <svg
-                  className={`w-6 h-6 transition-colors ${
-                    isWishlisted
+                  className={`w-6 h-6 transition-colors ${isWishlisted
                       ? "text-red-500 fill-current"
                       : "text-gray-300 hover:text-red-400 fill-transparent stroke-current stroke-2"
-                  }`}
+                    }`}
                   viewBox="0 0 24 24"
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
@@ -172,13 +171,12 @@ const ProductDetails = () => {
                 <button
                   onClick={handleAddToCart}
                   disabled={cartStatus === 'adding' || product.stock < 1}
-                  className={`font-bold text-xs sm:text-sm uppercase tracking-wider py-3.5 px-4 rounded-sm transition flex items-center justify-center gap-2 shadow-sm ${
-                    cartStatus === 'adding'
+                  className={`font-bold text-xs sm:text-sm uppercase tracking-wider py-3.5 px-4 rounded-sm transition flex items-center justify-center gap-2 shadow-sm ${cartStatus === 'adding'
                       ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
                       : product.stock < 1
-                      ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                      : 'bg-[#ff9f00] hover:bg-[#f39700] text-white active:scale-98'
-                  }`}
+                        ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                        : 'bg-[#ff9f00] hover:bg-[#f39700] text-white active:scale-98'
+                    }`}
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -209,7 +207,7 @@ const ProductDetails = () => {
 
           {/* Right Column: Product Details & Specifications */}
           <div className="lg:w-7/12 flex flex-col justify-start">
-            
+
             {/* Category */}
             <span className="text-xs text-[#878787] uppercase font-bold tracking-wider">
               {product.category}
@@ -321,11 +319,10 @@ const ProductDetails = () => {
               <button
                 onClick={handleAddToWishlist}
                 disabled={isWishlistSaving}
-                className={`w-full sm:w-auto text-xs font-bold px-6 py-2.5 rounded-sm border transition flex items-center justify-center gap-2 ${
-                  isWishlisted
+                className={`w-full sm:w-auto text-xs font-bold px-6 py-2.5 rounded-sm border transition flex items-center justify-center gap-2 ${isWishlisted
                     ? 'border-red-300 bg-red-50 text-red-600'
                     : 'border-[#d5d7db] bg-white text-[#212121] hover:bg-gray-50'
-                }`}
+                  }`}
               >
                 <span>{isWishlisted ? '❤️ Saved to Wishlist' : '♡ Add to Wishlist'}</span>
               </button>
