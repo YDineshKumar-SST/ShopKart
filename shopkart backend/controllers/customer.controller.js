@@ -5,28 +5,28 @@ const jwt = require('jsonwebtoken');
 const registerCustomer = async (req, res) => {
     try {
         const { fullName, email, password, phone } = req.body;
-        
+
         if (!fullName || !email || !password || !phone) {
             return res.status(400).json({ message: "All fields are mandatory" });
         }
-        
+
         const existingCustomer = await Customer.findOne({ email });
         if (existingCustomer) {
             return res.status(409).json({ message: "already registered" });
         }
-        
+
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
-        
+
         const newCustomer = new Customer({
-            fullName, 
-            email, 
+            fullName,
+            email,
             password: hashedPassword,
-            phone 
+            phone
         });
-        
+
         await newCustomer.save();
-        
+
         res.status(201).json({
             success: true,
             message: "Customer registered successfully",
@@ -37,7 +37,7 @@ const registerCustomer = async (req, res) => {
                 phone: newCustomer.phone
             }
         });
-    } catch(error) {
+    } catch (error) {
         console.log(error);
         res.status(500).json({ message: "Server error" });
     }
@@ -52,24 +52,25 @@ const loginCustomer = async (req, res) => {
         if (!customer) {
             return res.status(401).json({ success: false, message: "Invalid credentials" });
         }
-        
+
         const isPasswordMatch = await bcrypt.compare(password, customer.password);
         if (!isPasswordMatch) {
             return res.status(401).json({ success: false, message: "Invalid credentials" });
         }
-        
+
         const token = jwt.sign(
-            { id: customer._id }, 
-            process.env.JWT_SECRET, 
+            { id: customer._id },
+            process.env.JWT_SECRET,
             { expiresIn: '1d' }
         );
-        
+
         customer.password = undefined;
 
         res.cookie('token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            maxAge: 24 * 60 * 60 * 1000 
+            secure: true,
+            sameSite: 'none',
+            maxAge: 24 * 60 * 60 * 1000
         }).status(200).json({
             success: true,
             message: "Login successful",
@@ -93,6 +94,8 @@ const logoutCustomer = async (req, res) => {
     try {
         res.cookie('token', '', {
             httpOnly: true,
+            secure: true,
+            sameSite: 'none',
             expires: new Date(0)
         });
 
@@ -104,13 +107,14 @@ const logoutCustomer = async (req, res) => {
         res.status(500).json({ success: false, message: "Error in logout", error: error.message });
     }
 };
+
 const updateCustomerProfile = async (req, res) => {
     try {
         const { fullName, phone, profileImage } = req.body;
         const updatedCustomer = await Customer.findByIdAndUpdate(
             req.user._id,
             { fullName, phone, profileImage },
-            { new: true } 
+            { new: true }
         ).select('-password');
 
         res.status(200).json({ success: true, customer: updatedCustomer });
@@ -120,9 +124,9 @@ const updateCustomerProfile = async (req, res) => {
 };
 
 module.exports = {
-    registerCustomer, 
-    loginCustomer, 
-    getCustomerProfile, 
-    logoutCustomer, 
-    updateCustomerProfile 
+    registerCustomer,
+    loginCustomer,
+    getCustomerProfile,
+    logoutCustomer,
+    updateCustomerProfile
 }
