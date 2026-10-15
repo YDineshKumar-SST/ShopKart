@@ -13,7 +13,7 @@ require('dotenv').config();
 const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: [process.env.frontend_url, "https://shopkart-eight-roan.vercel.app"],
     credentials: true
 }));
 app.use(cookieParser());
